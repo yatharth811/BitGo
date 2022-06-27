@@ -154,32 +154,32 @@ for cur in ['USD', 'INR', 'EUR']:
 
 
 
-# with open("marketcap.csv", "w", encoding='UTF8', newline='') as f:
-#     writer = csv.writer(f)
-#     writer.writerow(csvheader)
-#     writer.writerows(outData)
+with open("marketcap.csv", "w", encoding='UTF8', newline='') as f:
+    writer = csv.writer(f)
+    writer.writerow(csvheader)
+    writer.writerows(outData)
 
 
-# with open("historicalPrices.csv", "w", encoding='UTF8', newline='') as f:
-#     writer = csv.writer(f)
-#     writer.writerow(csvheader2)
-#     writer.writerows(outData2)
+with open("historicalPrices.csv", "w", encoding='UTF8', newline='') as f:
+    writer = csv.writer(f)
+    writer.writerow(csvheader2)
+    writer.writerows(outData2)
 
 
-# with open("hourlyExchangeVolume.csv", "w", encoding='UTF8', newline='') as f:
-#     writer = csv.writer(f)
-#     writer.writerow(csvheader3)
-#     writer.writerows(outData3)
+with open("hourlyExchangeVolume.csv", "w", encoding='UTF8', newline='') as f:
+    writer = csv.writer(f)
+    writer.writerow(csvheader3)
+    writer.writerows(outData3)
 
-# with open("topExchangeBTCUSD.csv", "w", encoding='UTF8', newline='') as f:
-#     writer = csv.writer(f)
-#     writer.writerow(csvheader4)
-#     writer.writerows(outData4)
+with open("topExchangeBTCUSD.csv", "w", encoding='UTF8', newline='') as f:
+    writer = csv.writer(f)
+    writer.writerow(csvheader4)
+    writer.writerows(outData4)
 
-# with open("topExchangeETHUSD.csv", "w", encoding='UTF8', newline='') as f:
-#     writer = csv.writer(f)
-#     writer.writerow(csvheader5)
-#     writer.writerows(outData5)
+with open("topExchangeETHUSD.csv", "w", encoding='UTF8', newline='') as f:
+    writer = csv.writer(f)
+    writer.writerow(csvheader5)
+    writer.writerows(outData5)
 
 
 with open("Exchange.csv", "w", encoding='UTF8', newline='') as f:
