@@ -2,8 +2,6 @@ import re
 from matplotlib.pyplot import hist
 import requests, json, csv
 
-API_KEY = "10a54ff876c174db2fe90a61907bf7eb979b48a7ec315fd6935ad77782d3ca2a"
-
 ## marketCap.csv 
 
 myjson = {
