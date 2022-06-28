@@ -21,7 +21,7 @@ for currency in myjson:
 for x in myjson['USD']['Data']:
     listing = [x['CoinInfo']['Name']]
     historicalCoins.append(x['CoinInfo']['Name'])
-    if (x['CoinInfo']['Name'] not in {'BIT', 'CUSDC'}):
+    if 'RAW' in x:
         for y in x['RAW']['USD']:
             listing.append(x['RAW']['USD'][y])
 
@@ -30,7 +30,7 @@ for x in myjson['USD']['Data']:
 cnt = 0
 for x in myjson['INR']['Data']:
     listing = outData[cnt]
-    if (x['CoinInfo']['Name'] not in {'BIT', 'CUSDC', 'SAITAMA', 'VELO', 'XEC', 'LDO'}):
+    if 'RAW' in x:
         for y in x['RAW']['INR']:
             listing.append(x['RAW']['INR'][y])
     cnt+=1
@@ -39,7 +39,7 @@ for x in myjson['INR']['Data']:
 cnt = 0
 for x in myjson['EUR']['Data']:
     listing = outData[cnt]
-    if (x['CoinInfo']['Name'] not in {'BIT', 'CUSDC', 'VELO', 'XEC'}):
+    if 'RAW' in x:
         for y in x['RAW']['EUR']:
             listing.append(x['RAW']['EUR'][y])
     cnt+=1
@@ -151,36 +151,75 @@ for cur in ['USD', 'INR', 'EUR']:
             cnt = 0
 
 
+## Historical Exchange Volume BTC-USD, ETH-USD Single Exchange
 
-with open("marketcap.csv", "w", encoding='UTF8', newline='') as f:
+exchanges = ['coinbase', 'gemini', 'binance', 'kraken', 'bitstamp', 'lmax', 'crosstower', 'ftx', 'cexio', 'itbit']
+csvheader7 = ['time'] + exchanges
+outData7 = []
+outData8 = []
+for x in exchanges:
+    res = requests.get(f'https://min-api.cryptocompare.com/data/exchange/symbol/histoday?fsym=BTC&tsym=USD&limit=100&e={x}').json()
+    cnt = 0
+    for y in res['Data']:
+        if x == 'coinbase':
+            outData7.append([y['time'], y['volumetotal']])
+        else:
+            outData7[cnt].append(y['volumetotal'])
+            cnt+=1
+        
+
+for x in exchanges:
+    res = requests.get(f'https://min-api.cryptocompare.com/data/exchange/symbol/histoday?fsym=ETH&tsym=USD&limit=100&e={x}').json()
+    cnt = 0
+    for y in res['Data']:
+        if x == 'coinbase':
+            outData8.append([y['time'], y['volumetotal']])
+        else:
+            outData8[cnt].append(y['volumetotal'])
+            cnt+=1
+        
+
+## File Handling
+# with open("marketcap.csv", "w", encoding='UTF8', newline='') as f:
+#     writer = csv.writer(f)
+#     writer.writerow(csvheader)
+#     writer.writerows(outData)
+
+
+# with open("historicalPrices.csv", "w", encoding='UTF8', newline='') as f:
+#     writer = csv.writer(f)
+#     writer.writerow(csvheader2)
+#     writer.writerows(outData2)
+
+
+# with open("hourlyExchangeVolume.csv", "w", encoding='UTF8', newline='') as f:
+#     writer = csv.writer(f)
+#     writer.writerow(csvheader3)
+#     writer.writerows(outData3)
+
+# with open("topExchangeBTCUSD.csv", "w", encoding='UTF8', newline='') as f:
+#     writer = csv.writer(f)
+#     writer.writerow(csvheader4)
+#     writer.writerows(outData4)
+
+# with open("topExchangeETHUSD.csv", "w", encoding='UTF8', newline='') as f:
+#     writer = csv.writer(f)
+#     writer.writerow(csvheader5)
+#     writer.writerows(outData5)
+
+
+# with open("Exchange.csv", "w", encoding='UTF8', newline='') as f:
+#     writer = csv.writer(f)
+#     writer.writerow(csvheader6)
+#     writer.writerows(outData6)
+
+
+with open("btc-exchange-historical-in-usd.csv", "w", encoding='UTF8', newline='') as f:
     writer = csv.writer(f)
-    writer.writerow(csvheader)
-    writer.writerows(outData)
+    writer.writerow(csvheader7)
+    writer.writerows(outData7)
 
-
-with open("historicalPrices.csv", "w", encoding='UTF8', newline='') as f:
+with open("eth-exchange-historical-in-usd.csv", "w", encoding='UTF8', newline='') as f:
     writer = csv.writer(f)
-    writer.writerow(csvheader2)
-    writer.writerows(outData2)
-
-
-with open("hourlyExchangeVolume.csv", "w", encoding='UTF8', newline='') as f:
-    writer = csv.writer(f)
-    writer.writerow(csvheader3)
-    writer.writerows(outData3)
-
-with open("topExchangeBTCUSD.csv", "w", encoding='UTF8', newline='') as f:
-    writer = csv.writer(f)
-    writer.writerow(csvheader4)
-    writer.writerows(outData4)
-
-with open("topExchangeETHUSD.csv", "w", encoding='UTF8', newline='') as f:
-    writer = csv.writer(f)
-    writer.writerow(csvheader5)
-    writer.writerows(outData5)
-
-
-with open("Exchange.csv", "w", encoding='UTF8', newline='') as f:
-    writer = csv.writer(f)
-    writer.writerow(csvheader6)
-    writer.writerows(outData6)
+    writer.writerow(csvheader7)
+    writer.writerows(outData8)
